@@ -83,7 +83,6 @@ RUN set -eux; \
 		gcc \
 		libc-dev \
 		make \
-		"openjdk${JAVA_VERSION%%[-~bu]*}"="$JAVA_ALPINE_VERSION" \
 		openssl-dev \
 	; \
 	( \
