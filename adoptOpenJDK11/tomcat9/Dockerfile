@@ -6,7 +6,7 @@ ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
-ENV JAVA_VERSION `java -version 2>&1 |awk 'NR==2{ gsub(/"/,""); print $3 }'`
+ENV JAVA_VERSION=`java -version 2>&1 |awk 'NR==2{ gsub(/"/,""); print $3 }'`
 ENV JAVA_ALPINE_VERSION ${JAVA_VERSION}
 
 # let "Tomcat Native" live somewhere isolated
