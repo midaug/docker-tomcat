@@ -1,13 +1,13 @@
 # 使用镜像源
 FROM midaug/alpine-cn-adoptopenjdk11:latest
 
+# 镜像作者信息
+LABEL MAINTAINER midaug "blog.midaug.win"
+
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
-
-ENV JAVA_VERSION "11.0.2"
-ENV JAVA_ALPINE_VERSION "11.0.2+7"
 
 # let "Tomcat Native" live somewhere isolated
 ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
@@ -86,7 +86,6 @@ RUN set -eux; \
 		gcc \
 		libc-dev \
 		make \
-		"openjdk${JAVA_VERSION%%[-~bu]*}"="$JAVA_ALPINE_VERSION" \
 		openssl-dev \
 	; \
 	( \
@@ -98,7 +97,7 @@ RUN set -eux; \
 			--libdir="$TOMCAT_NATIVE_LIBDIR" \
 			--prefix="$CATALINA_HOME" \
 			--with-apr="$(which apr-1-config)" \
-			--with-java-home="$(docker-java-home)" \
+			--with-java-home="${JAVA_HOME}" \
 			--with-ssl=yes; \
 		make -j "$(nproc)"; \
 		make install; \
